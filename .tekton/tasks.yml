@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: cleanup
+spec:
+  steps:
+    - name: remove-temp-files
+      image: alpine
+      script: |
+        #!/bin/sh
+        rm -rf /workspace/temp
+
+    - name: run-nose-tests
+      image: python:3.9
+      script: |
+        #!/bin/sh
+        pip install nose
+        nosetests
